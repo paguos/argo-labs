@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: data-source-b-
+  namespace: argo
+  labels:
+    app: data-source-b
+spec:
+  serviceAccountName: argo
+  entrypoint: whalesay
+  templates:
+    - name: whalesay
+      container:
+        image: docker/whalesay:latest
+        command: [cowsay]
+        args: ["Pulling data from data source b ..."]

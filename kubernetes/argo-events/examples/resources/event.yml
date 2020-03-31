@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: resource-event-source
+spec:
+  type: "resource"
+  resource:
+    data-source-a:
+      # namespace to listen events within
+      namespace: "argo"
+      # resource group
+      group: "argoproj.io"
+      # resource version
+      version: "v1alpha1"
+      # resource kind
+      resource: "workflows"
+      # type of event
+      # possible values are ADD, DELETE, UPDATE
+      # Optional
+      eventType: ADD
+      # Filters to apply on watched object
+      # Optional
+      filter:
+        labels:
+          app: "data-source-a"
+          workflows.argoproj.io/phase: Succeeded
+          workflows.argoproj.io/completed: "true"
+    data-source-b:
+      # namespace to listen events within
+      namespace: "argo"
+      # resource group
+      group: "argoproj.io"
+      # resource version
+      version: "v1alpha1"
+      # resource kind
+      resource: "workflows"
+      # type of event
+      # possible values are ADD, DELETE, UPDATE
+      # Optional
+      eventType: ADD
+      # Filters to apply on watched object
+      # Optional
+      filter:
+        labels:
+          app: "data-source-b"
+          workflows.argoproj.io/phase: Succeeded
+          workflows.argoproj.io/completed: "true"
